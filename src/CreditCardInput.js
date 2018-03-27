@@ -182,7 +182,8 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
       requiresPostalCode,
       cardScale,
       cardFontFamily,
-      cardBrandIcons
+      cardBrandIcons,
+      horizontalScroll
     } = this.props;
 
     return (
