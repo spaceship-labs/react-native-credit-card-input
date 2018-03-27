@@ -52,6 +52,11 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
 
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
+    inputsStyles: PropTypes.object,
+    inputsWrapperStyles: PropTypes.object,
+
+    formContainerStyle: View.propTypes.style,
+    formContentContainerStyle: PropTypes.object,
     inputContainerStyle: ViewPropTypes.style,
 
     validColor: PropTypes.string,
@@ -74,6 +79,23 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
 
   static defaultProps = {
     cardViewSize: {},
+    formContainerStyle: {},
+    formContentContainerStyle: {},
+    inputsWrapperStyles: {
+      name: {},
+      number: {},
+      expiry: {},
+      cvc: {},
+      postalCode: {}
+    },
+
+    inputsStyles: {
+      name: {},
+      number: {},
+      expiry: {},
+      cvc: {},
+      postalCode: {}
+    },
     labels: {
       name: "CARDHOLDER'S NAME",
       number: "CARD NUMBER",
@@ -89,6 +111,7 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
       postalCode: "34567"
     },
     inputContainerStyle: {
+      backgroundColor: "red",
       borderBottomWidth: 1,
       borderBottomColor: "black"
     },
@@ -183,7 +206,11 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
       cardScale,
       cardFontFamily,
       cardBrandIcons,
-      horizontalScroll
+      horizontalScroll,
+      formContainerStyle,
+      formContentContainerStyle,
+      inputsWrapperStyles,
+      inputsStyles
     } = this.props;
 
     return (
@@ -207,55 +234,66 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
           keyboardShouldPersistTaps="always"
           scrollEnabled={allowScroll}
           showsHorizontalScrollIndicator={false}
-          style={s.form}
+          contentContainerStyle={formContentContainerStyle}
+          style={[s.form, formContainerStyle]}
         >
           <CCInput
             {...this._inputProps("number")}
             keyboardType="numeric"
+            inputWrapperStyle={inputsWrapperStyles.number}
             containerStyle={[
               s.inputContainer,
               inputContainerStyle,
-              { width: CARD_NUMBER_INPUT_WIDTH }
+              { width: CARD_NUMBER_INPUT_WIDTH },
+              inputsStyles.number
             ]}
           />
           <CCInput
             {...this._inputProps("expiry")}
             keyboardType="numeric"
+            inputWrapperStyle={inputsWrapperStyles.expiry}
             containerStyle={[
               s.inputContainer,
               inputContainerStyle,
-              { width: EXPIRY_INPUT_WIDTH }
+              { width: EXPIRY_INPUT_WIDTH },
+              inputsStyles.expiry
             ]}
           />
           {requiresCVC && (
             <CCInput
               {...this._inputProps("cvc")}
               keyboardType="numeric"
+              inputWrapperStyle={inputsWrapperStyles.cvc}
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: CVC_INPUT_WIDTH }
+                { width: CVC_INPUT_WIDTH },
+                inputsStyles.cvc
               ]}
             />
           )}
           {requiresName && (
             <CCInput
               {...this._inputProps("name")}
+              inputWrapperStyle={inputsWrapperStyles.name}
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: NAME_INPUT_WIDTH }
+                { width: NAME_INPUT_WIDTH },
+                inputsStyles.name
               ]}
             />
           )}
           {requiresPostalCode && (
             <CCInput
               {...this._inputProps("postalCode")}
+              inputWrapperStyle={inputsWrapperStyles.postalCode}
               keyboardType="numeric"
               containerStyle={[
                 s.inputContainer,
                 inputContainerStyle,
-                { width: POSTAL_CODE_INPUT_WIDTH }
+                { width: POSTAL_CODE_INPUT_WIDTH },
+                inputsStyles.postalCode
               ]}
             />
           )}
