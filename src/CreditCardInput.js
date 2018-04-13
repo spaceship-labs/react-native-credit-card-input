@@ -44,7 +44,12 @@ const NAME_INPUT_WIDTH = CARD_NUMBER_INPUT_WIDTH;
 const PREVIOUS_FIELD_OFFSET = 40;
 const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plugin-react/issues/106
 
-/* eslint react/prop-types: 0 */ export default class CreditCardInput extends Component {
+// if ViewPropTypes is not defined fall back to View.propType (to support RN < 0.44)
+const viewPropTypes = ViewPropTypes || View.propTypes;
+
+/* eslint react/prop-types: 0 */
+
+export default class CreditCardInput extends Component {
   static propTypes = {
     ...InjectedProps,
     labels: PropTypes.object,
@@ -55,9 +60,9 @@ const POSTAL_CODE_INPUT_WIDTH = 120; // https://github.com/yannickcr/eslint-plug
     inputsStyles: PropTypes.object,
     inputsWrapperStyles: PropTypes.object,
 
-    formContainerStyle: View.propTypes.style,
+    formContainerStyle: viewPropTypes.style,
     formContentContainerStyle: PropTypes.object,
-    inputContainerStyle: ViewPropTypes.style,
+    inputContainerStyle: viewPropTypes.style,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
